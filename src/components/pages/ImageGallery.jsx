@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 /* eslint-disable no-undef */
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
@@ -14,9 +15,11 @@ const ImageGallery = () => {
 	const [images, setImages] = useState(imageData);
 	const [selectedImages, setSelectedImages] = useState([]);
 	const [imageFiles, setImageFiles] = useState([]);
-
+	const [isDrag, setIsDrag] = useState(false);
+	const [dragImage, setDragImage] = useState(null);
 	const [draggedImageIndex, setDraggedImageIndex] = useState(null);
 
+	// const [draggedIndex, setDraggedIndex] = useState(null);
 	const handleImageSelect = (imageId) => {
 		// Toggle the selected state of an image
 		setSelectedImages((prevSelectedImages) => {
@@ -70,10 +73,10 @@ const ImageGallery = () => {
 		// setImageFiles([]);
 	};
 
-	const handleDragStart = (e, index) => {
-		draggedImageIndex(index);
+	const handleDragStart = (img) => {
+		setIsDrag(true);
+		setDragImage(img);
 	};
-
 	const handleDragOver = (e) => {
 		e.preventDefault();
 	};
@@ -104,16 +107,16 @@ const ImageGallery = () => {
 
 			<div
 				className=" grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 m-8"
-				// onDragOver={handleDragOver}
+				onDragOver={handleDragOver}
 			>
 				{images.map((item, index) => (
 					<div
 						key={item.id}
 						data-index={index}
 						draggable
-						onDragStart={(e) => handleDragStart(e, index)}
-						onDragOver={handleDragOver}
-						onDrop={handleDrop}
+						handleDragStart={handleDragStart}
+						handleDragOver={handleDragOver}
+						handleDrop={handleDrop}
 					>
 						<SingleImage
 							key={item.id}
@@ -123,16 +126,18 @@ const ImageGallery = () => {
 							index={index}
 							handleImageSelect={handleImageSelect}
 							deleteSelectedImages={deleteSelectedImages}
-							// handleDrop={handleDrop}
+							draggable
+							handleDragStart={handleDragStart}
+							handleDragOver={handleDragOver}
+							handleDrop={handleDrop}
 						></SingleImage>
 					</div>
 				))}
+
+				<DragAndDrop handleFileChange={handleFileChange} />
 			</div>
 
-			<div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
-				<DragAndDrop handleFileChange={handleFileChange} />
-				{/* <SampleTwo handleFileChange={handleFileChange}></SampleTwo> */}
-			</div>
+			
 		</>
 	);
 };

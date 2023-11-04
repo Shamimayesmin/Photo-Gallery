@@ -27,10 +27,3 @@ const DragAndDrop = ({ handleFileChange }) => {
 
 export default DragAndDrop;
 
-const handleDragOver = (e) => {
-	e.preventDefault();
-};
-
-const handleDrop = (e) => {
-	e.preventDefault();
-};
