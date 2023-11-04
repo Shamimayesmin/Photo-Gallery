@@ -4,6 +4,8 @@
 import React, { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import imageData from "../../data";
+import SingleImage from "./SingleImage";
+import DragAndDrop from "./DragAndDrop";
 
 const SampleOne = () => {
 	const [images, setImages] = useState(imageData);
@@ -19,17 +21,48 @@ const SampleOne = () => {
 
 	const onDragEnd = (result) => {
 		if (!result.destination) {
-			return;
+		  return;
 		}
-
+	
 		const reorderedImages = Array.from(images);
 		const [reorderedItem] = reorderedImages.splice(result.source.index, 1);
 		reorderedImages.splice(result.destination.index, 0, reorderedItem);
-
-		setImages(reorderedImages);
-	};
-
 	
+		setImages(reorderedImages); // Update the state with the reordered images
+	  };
+
+
+	const handleFileChang = (e) => {
+		const selectedFiles = e.target.files;
+		console.log("Selected files:", selectedFiles);
+
+		const newImages = Array.from(selectedFiles).map((file, index) => {
+			const id = images.length + index + 1;
+			const photo = URL.createObjectURL(file);
+			console.log("Created URL for file:", photo);
+
+			return { id, photo };
+		});
+
+		console.log("New images:", images, newImages);
+		setImages([...images, ...newImages]);
+		// setImageFiles([]);
+	};
+	
+	const handleFileChange = (e) => {
+		const selectedFiles = e.target.files;
+		console.log("Selected files:", selectedFiles);
+	
+		const newImages = Array.from(selectedFiles).map((file, index) => {
+		  const id = Date.now() + index; // Generate unique IDs
+		  const photo = URL.createObjectURL(file);
+	
+		  return { id: id.toString(), photo };
+		});
+	
+		// Update the state with the new images
+		setImages([...images, ...newImages]);
+	  };
 	
 	  const deleteImages = () => {
 		const updatedImages = images.filter((image) => !image.selected);
@@ -47,35 +80,43 @@ const SampleOne = () => {
 	return (
 		<div>
 			<DragDropContext onDragEnd={onDragEnd}>
-				<Droppable
-					droppableId="image-gallery"
-					direction="horizontal"
-				>
-
-					{(provided)=>(
-						<div ref={provided.innerRef}
-						{...provided.droppableProps}
-						className="bg-blue-300 my-10">
-							{images.map((image, index)=>(
-								<Draggable key={image.id} draggableId={image.id.toString()} index={index}>
-								{(provided) => (
-								  <div
-								  
-									ref={provided.innerRef}
-									{...provided.draggableProps}
-									{...provided.dragHandleProps}
-									className="gap-3 w-80 grid border-2 mt-4"
-								  >
-									<img className="" src={image.image} alt={`Image ${image.id}`} />
-								  </div>
-								)}
-							  </Draggable>
-							))}
-							{provided.placeholder}
-						</div>
-					)}
-				</Droppable>
-			</DragDropContext>
+					<Droppable droppableId="image-gallery" direction="vertical">
+						{(provided) => (
+							<div
+								ref={provided.innerRef}
+								{...provided.droppableProps}
+								className="bg-blue-300 my-10"
+							>
+								{images.map((image, index) => (
+									<Draggable
+										key={image.id}
+										draggableId={image.id.toString()}
+										index={index}
+									>
+										{(provided) => (
+											<div
+												ref={provided.innerRef}
+												{...provided.draggableProps}
+												{...provided.dragHandleProps}
+												className="gap-3 w-80 grid border-2 mt-4"
+											>
+												<SingleImage
+													item={image}
+													index={index}
+													selectedImages={selectedImages}
+													setSelectedImages={setSelectedImages}
+													
+												/>
+											</div>
+										)}
+									</Draggable>
+								))}
+								{provided.placeholder}
+								<DragAndDrop handleFileChange={handleFileChange} />
+							</div>
+						)}
+					</Droppable>
+				</DragDropContext>
 		</div>
 	);
 };

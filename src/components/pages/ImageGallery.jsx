@@ -3,7 +3,7 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import SingleImage from "./SingleImage";
 import FilterButtons from "./FilterButtons";
 import imageData from "../../data";
@@ -14,12 +14,11 @@ import SampleTwo from "./SampleTwo";
 const ImageGallery = () => {
 	const [images, setImages] = useState(imageData);
 	const [selectedImages, setSelectedImages] = useState([]);
-	const [imageFiles, setImageFiles] = useState([]);
 	const [isDrag, setIsDrag] = useState(false);
 	const [dragImage, setDragImage] = useState(null);
 	const [draggedImageIndex, setDraggedImageIndex] = useState(null);
-
-	// const [draggedIndex, setDraggedIndex] = useState(null);
+	const [draggedIndex, setDraggedIndex] = useState(null);
+	const [draggedImage, setDraggedImage] = useState(null);
 	const handleImageSelect = (imageId) => {
 		// Toggle the selected state of an image
 		setSelectedImages((prevSelectedImages) => {
@@ -39,23 +38,6 @@ const ImageGallery = () => {
 		setSelectedImages([]); // Clear selected images after deletion
 	};
 
-	// Reorder image
-
-	const handleReorderImages = () => {
-		// Create a copy of the current images array
-		const reorderedImages = Array.from(images);
-
-		// Sort the reorderedImages array based on the order of selectedImages
-		reorderedImages.sort((a, b) => {
-			const indexA = images.indexOf(a);
-			const indexB = images.indexOf(b);
-			return selectedImages.indexOf(indexA) - selectedImages.indexOf(indexB);
-		});
-
-		// Update the state with the reordered images
-		setImages(reorderedImages);
-	};
-
 	const handleFileChange = (e) => {
 		const selectedFiles = e.target.files;
 		console.log("Selected files:", selectedFiles);
@@ -73,34 +55,107 @@ const ImageGallery = () => {
 		// setImageFiles([]);
 	};
 
-	const handleDragStart = (img) => {
-		setIsDrag(true);
-		setDragImage(img);
-	};
+	// const handleDragStart = (img) => {
+	// 	setIsDrag(true);
+	// 	setDragImage(img);
+	// };
+
 	const handleDragOver = (e) => {
 		e.preventDefault();
-	};
 
-	const handleDrop = (e) => {
-		e.preventDefault();
-		const fromIndex = draggedImageIndex;
-		const toIndex = e.target.getAttribute("data-index");
-
-		if (fromIndex !== toIndex) {
-			const updatedImages = [...images];
-			const [draggedImage] = updatedImages.splice(fromIndex, 1);
-			updatedImages.splice(toIndex, 0, draggedImage);
-
-			setImages(updatedImages);
+		if (e.target && e.target.children[0] && e.target.children[0].alt) {
+			setDraggedImageIndex(e.target.children[0].alt);
 		}
-
-		setDraggedImageIndex(null);
 	};
 
+	// const handleDrop = (selectedIndex) => {
+	//     console.log("Before drop - dragImage:", dragImage);
+	//     console.log("Before drop - images:", images);
+	//     setIsDrag(false);
+
+	//     if (dragImage) {
+	//       const updatedImages = images.map((image, index) => {
+	//         if (index === selectedIndex) {
+	//           return { ...dragImage }; // Update the item with dragImage
+	//         } else {
+	//           return { ...image };
+	//         }
+	//       });
+
+	//       console.log("After drop - updatedImages:", updatedImages);
+	//       setImages(updatedImages);
+	//       setIsDrag(null);
+	//     }
+	//     console.log("After drop - images:", images);
+	//   };
+
+	//   const handleDrop = (selectedIndex) => {
+	//     console.log("Before drop - dragImage:", dragImage);
+	//     console.log("Before drop - images:", images);
+	//     setIsDrag(false);
+
+	//     if (dragImage) {
+	//       const updatedImages = images.map((image, index) => {
+	//         if (index === selectedIndex) {
+	//           return { ...dragImage };
+	//         }
+	//         return { ...image };
+	//       });
+	//       console.log("After drop - updatedImages:", updatedImages);
+	//       // Set the state only if dragImage is not empty
+	//       if (dragImage.image) {
+	//         setImages(updatedImages);
+	//       }
+
+	//       setIsDrag(null);
+	//     }
+
+	//     console.log("After drop - images:", images);
+	//   };
+
+	// const handleDrop = (selectedIndex) => {
+	// 	console.log("Before drop - dragImage:", dragImage);
+	// 	console.log("Before drop - images:", images);
+	// 	setIsDrag(false);
+
+	// 	if (dragImage && dragImage.id) {
+	// 		const updatedImages = images.map((image, index) => {
+	// 			if (index === selectedIndex) {
+	// 				return { ...dragImage };
+	// 			} else {
+	// 				return { ...image };
+	// 			}
+	// 		});
+
+	// 		console.log("After drop - updatedImages:", updatedImages);
+	// 		setImages(updatedImages);
+	// 		setIsDrag(null);
+	// 	}
+
+	// 	console.log("After drop - images:", images);
+	// };
+
+	const handleDragStart = (e, index) => {
+		setDraggedIndex(index);
+	};
+
+	const handleDragEnd = () => {
+		setDraggedIndex(null);
+	};
+
+	const handleDrop = (targetIndex) => {
+		if (draggedIndex === null || targetIndex === draggedIndex) return;
+
+		const newImages = [...images];
+		const [draggedImage] = newImages.splice(draggedIndex, 1);
+		newImages.splice(targetIndex, 0, draggedImage);
+
+		setImages(newImages);
+	};
 	return (
 		<>
 			<FilterButtons
-				handleReorderImages={handleReorderImages}
+				// handleReorderImages={handleReorderImages}
 				selectedImages={selectedImages}
 				deleteSelectedImages={deleteSelectedImages}
 			/>
@@ -110,34 +165,22 @@ const ImageGallery = () => {
 				onDragOver={handleDragOver}
 			>
 				{images.map((item, index) => (
-					<div
+					<SingleImage
 						key={item.id}
-						data-index={index}
-						draggable
-						handleDragStart={handleDragStart}
-						handleDragOver={handleDragOver}
-						handleDrop={handleDrop}
-					>
-						<SingleImage
-							key={item.id}
-							item={item}
-							selectedImages={selectedImages}
-							setSelectedImages={setSelectedImages}
-							index={index}
-							handleImageSelect={handleImageSelect}
-							deleteSelectedImages={deleteSelectedImages}
-							draggable
-							handleDragStart={handleDragStart}
-							handleDragOver={handleDragOver}
-							handleDrop={handleDrop}
-						></SingleImage>
-					</div>
+						item={item}
+						selectedImages={selectedImages}
+						index={index}
+						handleImageSelect={handleImageSelect}
+						onDragStart={handleDragStart}
+						onDragEnd={handleDragEnd}
+						isDragging={index === draggedIndex}
+						onDrop={() => handleDrop(index)}
+					></SingleImage>
 				))}
 
+				{/* last section */}
 				<DragAndDrop handleFileChange={handleFileChange} />
 			</div>
-
-			
 		</>
 	);
 };

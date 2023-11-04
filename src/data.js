@@ -51,7 +51,7 @@ const imageData = [
 	{
 		image: img8,
 		id: 8,
-		isFeatured: false
+		
 	},
 	{
 		image: img9,
