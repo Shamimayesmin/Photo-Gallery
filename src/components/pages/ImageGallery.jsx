@@ -68,50 +68,7 @@ const ImageGallery = () => {
 		}
 	};
 
-	// const handleDrop = (selectedIndex) => {
-	//     console.log("Before drop - dragImage:", dragImage);
-	//     console.log("Before drop - images:", images);
-	//     setIsDrag(false);
-
-	//     if (dragImage) {
-	//       const updatedImages = images.map((image, index) => {
-	//         if (index === selectedIndex) {
-	//           return { ...dragImage }; // Update the item with dragImage
-	//         } else {
-	//           return { ...image };
-	//         }
-	//       });
-
-	//       console.log("After drop - updatedImages:", updatedImages);
-	//       setImages(updatedImages);
-	//       setIsDrag(null);
-	//     }
-	//     console.log("After drop - images:", images);
-	//   };
-
-	//   const handleDrop = (selectedIndex) => {
-	//     console.log("Before drop - dragImage:", dragImage);
-	//     console.log("Before drop - images:", images);
-	//     setIsDrag(false);
-
-	//     if (dragImage) {
-	//       const updatedImages = images.map((image, index) => {
-	//         if (index === selectedIndex) {
-	//           return { ...dragImage };
-	//         }
-	//         return { ...image };
-	//       });
-	//       console.log("After drop - updatedImages:", updatedImages);
-	//       // Set the state only if dragImage is not empty
-	//       if (dragImage.image) {
-	//         setImages(updatedImages);
-	//       }
-
-	//       setIsDrag(null);
-	//     }
-
-	//     console.log("After drop - images:", images);
-	//   };
+	
 
 	// const handleDrop = (selectedIndex) => {
 	// 	console.log("Before drop - dragImage:", dragImage);
