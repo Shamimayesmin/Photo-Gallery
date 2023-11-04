@@ -7,6 +7,15 @@ import imageData from "../../data";
 
 const SampleOne = () => {
 	const [images, setImages] = useState(imageData);
+	
+	const [selectedImages, setSelectedImages] = useState([]);
+	const [featuredImage, setFeaturedImage] = useState(null);
+	const [imageFiles, setImageFiles] = useState([]);
+
+	const addImage = (url) => {
+		const newImage = { id: Date.now(), url: url };
+		setImages([...images, newImage]);
+	};
 
 	const onDragEnd = (result) => {
 		if (!result.destination) {
@@ -19,6 +28,21 @@ const SampleOne = () => {
 
 		setImages(reorderedImages);
 	};
+
+	
+	
+	  const deleteImages = () => {
+		const updatedImages = images.filter((image) => !image.selected);
+		setImages(updatedImages);
+	  };
+	
+	  const toggleFeature = (imageId) => {
+		const updatedImages = images.map((image) => ({
+		  ...image,
+		  isFeatured: image.id === imageId,
+		}));
+		setImages(updatedImages);
+	  };
 
 	return (
 		<div>

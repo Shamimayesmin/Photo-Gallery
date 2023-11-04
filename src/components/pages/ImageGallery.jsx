@@ -14,7 +14,7 @@ const ImageGallery = () => {
 	const [images, setImages] = useState(imageData);
 	const [selectedImages, setSelectedImages] = useState([]);
 	const [imageFiles, setImageFiles] = useState([]);
-	
+
 	const [draggedImageIndex, setDraggedImageIndex] = useState(null);
 
 	const handleImageSelect = (imageId) => {
@@ -55,22 +55,20 @@ const ImageGallery = () => {
 
 	const handleFileChange = (e) => {
 		const selectedFiles = e.target.files;
-        console.log("Selected files:", selectedFiles)
+		console.log("Selected files:", selectedFiles);
 
 		const newImages = Array.from(selectedFiles).map((file, index) => {
 			const id = images.length + index + 1;
 			const photo = URL.createObjectURL(file);
-            console.log("Created URL for file:", photo);
+			console.log("Created URL for file:", photo);
 
 			return { id, photo };
 		});
 
-        console.log("New images:",images, newImages);
+		console.log("New images:", images, newImages);
 		setImages([...images, ...newImages]);
 		// setImageFiles([]);
 	};
-
-	
 
 	const handleDragStart = (e, index) => {
 		draggedImageIndex(index);
@@ -132,11 +130,8 @@ const ImageGallery = () => {
 			</div>
 
 			<div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
-				{/* <DragAndDrop 
-                // handleReorderImages={handleReorderImages}
-                handleFileChange={handleFileChange}
-                /> */}
-				<SampleTwo handleFileChange={handleFileChange}></SampleTwo>
+				<DragAndDrop handleFileChange={handleFileChange} />
+				{/* <SampleTwo handleFileChange={handleFileChange}></SampleTwo> */}
 			</div>
 		</>
 	);

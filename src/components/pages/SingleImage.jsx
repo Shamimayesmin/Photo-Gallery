@@ -26,7 +26,7 @@ const SingleImage = ({
 	}
 	return (
 		<div>
-			<div key={index} className="card card-compact relative shadow-lg bg-white rounded-md hover:brightness-50 border-4 border-slate-600">
+			<div key={index} className="card card-compact w-80 relative shadow-lg bg-white rounded-md hover:brightness-50 border-4 border-slate-600">
 				<button onClick={() => handleImageSelect(item?.id)}>
 					<input
 						
