@@ -55,11 +55,6 @@ const ImageGallery = () => {
 		// setImageFiles([]);
 	};
 
-	// const handleDragStart = (img) => {
-	// 	setIsDrag(true);
-	// 	setDragImage(img);
-	// };
-
 	const handleDragOver = (e) => {
 		e.preventDefault();
 
