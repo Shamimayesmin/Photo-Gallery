@@ -68,30 +68,6 @@ const ImageGallery = () => {
 		}
 	};
 
-	
-
-	// const handleDrop = (selectedIndex) => {
-	// 	console.log("Before drop - dragImage:", dragImage);
-	// 	console.log("Before drop - images:", images);
-	// 	setIsDrag(false);
-
-	// 	if (dragImage && dragImage.id) {
-	// 		const updatedImages = images.map((image, index) => {
-	// 			if (index === selectedIndex) {
-	// 				return { ...dragImage };
-	// 			} else {
-	// 				return { ...image };
-	// 			}
-	// 		});
-
-	// 		console.log("After drop - updatedImages:", updatedImages);
-	// 		setImages(updatedImages);
-	// 		setIsDrag(null);
-	// 	}
-
-	// 	console.log("After drop - images:", images);
-	// };
-
 	const handleDragStart = (e, index) => {
 		setDraggedIndex(index);
 	};
