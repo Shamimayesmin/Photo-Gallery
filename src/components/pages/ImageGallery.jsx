@@ -82,7 +82,7 @@ const ImageGallery = () => {
 	return (
 		<>
 			<FilterButtons
-				// handleReorderImages={handleReorderImages}
+				
 				selectedImages={selectedImages}
 				deleteSelectedImages={deleteSelectedImages}
 			/>
@@ -90,7 +90,7 @@ const ImageGallery = () => {
 
 			<section className="h-full w-full p-5">
             <div
-				className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap-6 rounded-lg my-11"
+				className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap-6 rounded-lg mt-11 mb-24"
 				onDragOver={handleDragOver}
 			>
 				{images.map((item, index) => (
