@@ -4,7 +4,7 @@ import React from "react";
 const Footer = () => {
 	return (
 		<div className="btm-nav">
-			<button className="bg-pink-200 text-pink-600">
+			<button className="bg-pink-200 active text-pink-600">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					className="h-5 w-5"
@@ -21,7 +21,7 @@ const Footer = () => {
 				</svg>
 				<span className="btm-nav-label">Home</span>
 			</button>
-			<button className="active bg-blue-200 text-blue-600 border-blue-600">
+			<button className=" bg-blue-200 text-blue-600 border-blue-600">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					className="h-5 w-5"

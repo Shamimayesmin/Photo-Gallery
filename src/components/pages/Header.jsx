@@ -1,14 +1,11 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React from 'react';
 
-const FilterButtons = ({
-	selectedImages,
-	deleteSelectedImages,
-	
-}) => {
-	return (
-		<div className="py-4 px-5">
+const Header = ({selectedImages,
+	deleteSelectedImages}) => {
+    return (
+        <div className="py-4 px-5">
 			<div className="flex flex-row justify-between items-center">
 				<h1 className="text-xl font-semibold">
 					{" "}
@@ -29,7 +26,7 @@ const FilterButtons = ({
 				
 			</div>
 		</div>
-	);
+    );
 };
 
-export default FilterButtons;
+export default Header;

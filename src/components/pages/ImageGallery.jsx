@@ -5,15 +5,16 @@
 import React, { useState } from "react";
 
 import SingleImage from "./SingleImage";
-import FilterButtons from "./FilterButtons";
 import imageData from "../../data";
 import DragAndDrop from "./DragAndDrop";
+import Header from "./Header";
 
 const ImageGallery = () => {
 	const [images, setImages] = useState(imageData);
 	const [selectedImages, setSelectedImages] = useState([]);
 
 	const [draggedIndex, setDraggedIndex] = useState(null);
+    const [draggedImage, setDraggedImage] = useState(null);
 
 	//Toggle selecting image function
 	const handleImageSelect = (imageId) => {
@@ -79,13 +80,16 @@ const ImageGallery = () => {
 		newImages.splice(targetIndex, 0, draggedImage);
 
 		setImages(newImages);
+        setDraggedIndex(null)
 	};
 	return (
 		<>
-			<FilterButtons
+			
+			<Header
 				selectedImages={selectedImages}
 				deleteSelectedImages={deleteSelectedImages}
 			/>
+
 			<hr />
 
 			<section className="h-full w-full p-5">
