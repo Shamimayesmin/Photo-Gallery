@@ -88,8 +88,9 @@ const ImageGallery = () => {
 				deleteSelectedImages={deleteSelectedImages}
 			/>
 
-			<div
-				className=" grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 m-8"
+			<section className="h-full w-full p-5">
+            <div
+				className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap-4"
 				onDragOver={handleDragOver}
 			>
 				{images.map((item, index) => (
@@ -109,6 +110,7 @@ const ImageGallery = () => {
 				{/* last section */}
 				<DragAndDrop handleFileChange={handleFileChange} />
 			</div>
+            </section>
 		</>
 	);
 };

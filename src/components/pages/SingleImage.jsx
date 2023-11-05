@@ -22,10 +22,13 @@ const SingleImage = ({
 	// console.log(item);
 	// const { image, id } = item;
 	const isSelected = selectedImages.includes(item?.id);
-
+	const isFeatured = index === 0;
 	// let imageSource = item?.image || item?.id; // Assume it's an original image
 	let imageSource = item?.photo || item?.image || item?.id;
-	// Check if the item has a photo property (Blob URL)
+	const imageClasses = isFeatured
+    ? "w-full h-full lg:col-span-2 lg:row-span-2 md:col-span-2 md:row-span-2 border-2" // Larger size for the featured image w-full h-full border-2 rounded-lg col-start-1 col-end-3
+    : "col-span-1 w-full h-full  border-2 rounded-lg"; // Smaller size for the regular images lg:w-40 lg:h-40 md:w-full md:h-full  border-2 rounded-lg
+
 
 	// if (item?.photo) {
 	// 	imageSource = item?.photo;
@@ -33,17 +36,23 @@ const SingleImage = ({
 
 	//className="card card-compact w-80 relative shadow-lg bg-white rounded-md hover:brightness-50 border-4 border-slate-600"
 
+	
 	return (
-		<div>
-			<div
+		<div
 				key={index}
 				draggable
 				onDragStart={(e) => onDragStart(e, index)}
 				onDragEnd={onDragEnd}
 				onDrop={onDrop}
-				className={`card card-compact w-80 relative shadow-lg bg-white rounded-md hover:brightness-50 border-4 border-slate-600 ${
+				// className={`relative shadow-lg bg-white rounded-md hover:brightness-50 border-4 border-slate-600 ${
+				// 	isDragging ? "opacity-50" : ""
+				// } ${index === 0 ? " md:col-span-2 md:row-span-2" : " col-span-1"}`}
+
+
+				className={`group relative shadow-lg hover:brightness-50 border-2 border-slate-600 ${
 					isDragging ? "opacity-50" : ""
-				}`}
+				  } ${imageClasses}`}
+				
 			>
 				<button onClick={() => handleImageSelect(item?.id)}>
 					<input
@@ -51,13 +60,11 @@ const SingleImage = ({
 						type="checkbox"
 						checked={isSelected}
 					/>
-					<figure>
-						<img
-							className="rounded-sm"
-							src={imageSource}
-							alt={`Image ${item?.id}`}
-						/>
-					</figure>
+					<img
+						className="h-full w-full border-2"
+						src={imageSource}
+						alt={`Image ${item?.id}`}
+					/>
 				</button>
 				{/* <SampleTwo
 					isDrag={isDrag}
@@ -65,7 +72,6 @@ const SingleImage = ({
 					imageSource={imageSource}
 				/> */}
 			</div>
-		</div>
 	);
 };
 
