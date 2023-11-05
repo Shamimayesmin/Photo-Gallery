@@ -3,7 +3,7 @@ import React from "react";
 
 const Navbar = () => {
 	return (
-		<div className="navbar bg-nutral shadow-xl">
+		<div className="navbar shadow-sm bg-yellow-50 rounded-md">
 			<div className="navbar-start">
 				<div className="dropdown">
 					<label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -26,31 +26,30 @@ const Navbar = () => {
 						tabIndex={0}
 						className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
 					>
-						<li>
-							<a>Item 1</a>
+						<li className="hover:bg-fuchsia-400 rounded-md text-md">
+							<a>Albumn</a>
 						</li>
-						
-						<li>
-							<a>Item 3</a>
+
+						<li className="hover:bg-fuchsia-400 rounded-md text-md">
+							<a>For You</a>
 						</li>
 					</ul>
 				</div>
-				<a className="btn btn-ghost normal-case text-xl hover:bg-fuchsia-800">PhotoApp</a>
+				<a className="btn btn-ghost normal-case text-xl hover:bg-fuchsia-500 font-serif hover:text-white text-fuchsia-600">
+					Gallery
+				</a>
 			</div>
 			<div className="navbar-center hidden lg:flex">
 				<ul className="menu menu-horizontal px-1">
-					<li>
-						<a>Item 1</a>
+					<li className="hover:bg-fuchsia-400 rounded-md text-md">
+						<a>Albumn</a>
 					</li>
-					
-					<li>
-						<a>Item 3</a>
+
+					<li className="hover:bg-fuchsia-400 rounded-md text-md">
+						<a>For You</a>
 					</li>
 				</ul>
 			</div>
-			{/* <div className="navbar-end">
-				<a className="btn">Button</a>
-			</div> */}
 		</div>
 	);
 };
