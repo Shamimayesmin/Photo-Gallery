@@ -14,7 +14,8 @@ const ImageGallery = () => {
 	const [selectedImages, setSelectedImages] = useState([]);
 
 	const [draggedIndex, setDraggedIndex] = useState(null);
-    const [draggedImage, setDraggedImage] = useState(null);
+
+	const [draggedImage, setDraggedImage] = useState(false);
 
 	//Toggle selecting image function
 	const handleImageSelect = (imageId) => {
@@ -63,6 +64,7 @@ const ImageGallery = () => {
 
 	// Drag start function
 	const handleDragStart = (index) => {
+		setDraggedImage(true);
 		setDraggedIndex(index);
 	};
 
@@ -73,6 +75,7 @@ const ImageGallery = () => {
 
 	// Iamge drop function
 	const handleDrop = (targetIndex) => {
+		setDraggedImage(true);
 		if (draggedIndex === null || targetIndex === draggedIndex) return;
 
 		const newImages = [...images];
@@ -80,12 +83,13 @@ const ImageGallery = () => {
 		newImages.splice(targetIndex, 0, draggedImage);
 
 		setImages(newImages);
-        setDraggedIndex(null)
+		setDraggedIndex(null);
 	};
+
 	return (
 		<>
-			
 			<Header
+				setImages={setImages}
 				selectedImages={selectedImages}
 				deleteSelectedImages={deleteSelectedImages}
 			/>
@@ -104,9 +108,9 @@ const ImageGallery = () => {
 							selectedImages={selectedImages}
 							index={index}
 							handleImageSelect={handleImageSelect}
-							onDragStart={handleDragStart}
+							onDragStart={(e) => handleDragStart(e, item)}
 							onDragEnd={handleDragEnd}
-							isDragging={index === draggedIndex}
+							draggedImage={index === draggedImage}
 							onDrop={() => handleDrop(index)}
 						></SingleImage>
 					))}
