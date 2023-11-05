@@ -26,8 +26,8 @@ const SingleImage = ({
 	// let imageSource = item?.image || item?.id; // Assume it's an original image
 	let imageSource = item?.photo || item?.image || item?.id;
 	const imageClasses = isFeatured
-    ? "w-full h-full lg:col-span-2 lg:row-span-2 md:col-span-2 md:row-span-2 border-2" // Larger size for the featured image w-full h-full border-2 rounded-lg col-start-1 col-end-3
-    : "col-span-1 w-full h-full  border-2 rounded-lg"; // Smaller size for the regular images lg:w-40 lg:h-40 md:w-full md:h-full  border-2 rounded-lg
+    ? "lg:col-span-2 lg:row-span-2 md:col-span-2 md:row-span-2 rounded-lg" // Larger size for the featured image w-full h-full border-2 rounded-lg col-start-1 col-end-3
+    : "col-span-1 w-full h-full rounded-lg"; // Smaller size for the regular images lg:w-40 lg:h-40 md:w-full md:h-full  border-2 rounded-lg
 
 
 	// if (item?.photo) {
@@ -49,28 +49,24 @@ const SingleImage = ({
 				// } ${index === 0 ? " md:col-span-2 md:row-span-2" : " col-span-1"}`}
 
 
-				className={`group relative shadow-lg hover:brightness-50 border-2 border-slate-600 ${
+				className={`relative shadow-lg hover:brightness-50 border-2 border-slate-600 ${
 					isDragging ? "opacity-50" : ""
 				  } ${imageClasses}`}
 				
 			>
 				<button onClick={() => handleImageSelect(item?.id)}>
 					<input
-						className="cursor-pointer mt-2 absolute"
+						className="cursor-pointer mt-3 absolute"
 						type="checkbox"
 						checked={isSelected}
 					/>
 					<img
-						className="h-full w-full border-2"
+						className="h-full w-full object-cover border-2"
 						src={imageSource}
 						alt={`Image ${item?.id}`}
 					/>
 				</button>
-				{/* <SampleTwo
-					isDrag={isDrag}
-					draggedImageIndex={draggedImageIndex}
-					imageSource={imageSource}
-				/> */}
+				
 			</div>
 	);
 };

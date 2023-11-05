@@ -90,7 +90,7 @@ const ImageGallery = () => {
 
 			<section className="h-full w-full p-5">
             <div
-				className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap-4"
+				className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap-4 rounded-lg"
 				onDragOver={handleDragOver}
 			>
 				{images.map((item, index) => (
