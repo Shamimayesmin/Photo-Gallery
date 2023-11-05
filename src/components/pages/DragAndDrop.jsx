@@ -6,7 +6,7 @@ import imageData from "../../data";
 import { BsImage } from "react-icons/bs";
 const DragAndDrop = ({ handleFileChange }) => {
 	return (
-		<div className="relative border-2 border-dashed rounded-lg p-4 hover:bg-gray-50 transition-colors ease-linear mb-11 m-10">
+		<div className="card card-compact relative border-2 border-dashed rounded-lg hover:bg-gray-50 transition-colors ease-linear p-4">
 			<input
 				type="file"
 				title="Upload photo..."
@@ -17,7 +17,7 @@ const DragAndDrop = ({ handleFileChange }) => {
 				className="absolute top-0 left-0 h-full w-full opacity-0 cursor-pointer"
 				onChange={handleFileChange}
 			/>
-			<div className="h-full w-full flex flex-col justify-center items-center gap-y-4">
+			<div className="h-full w-full flex flex-col pt-4 justify-center items-center gap-y-4 py-5">
 				<BsImage className="w-7 h-7" />
 				<span>Add image</span>
 			</div>

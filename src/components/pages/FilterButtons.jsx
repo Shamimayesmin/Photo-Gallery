@@ -2,33 +2,31 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 
-const FilterButtons = ({ selectedImages, deleteSelectedImages,handleReorderImages }) => {
+const FilterButtons = ({
+	selectedImages,
+	deleteSelectedImages,
+	handleReorderImages,
+}) => {
 	return (
-		<div>
-			<div className="m-5 gap-4">
-				<button className="bg-red-300 p-4 rounded-md text-black">
-					{selectedImages.length}
-					Files selected
-				</button>
+		<div className="py-4 px-5">
+			<div className="flex flex-row justify-between items-center">
+				<h1 className="text-xl font-semibold">
+					{" "}
+					{selectedImages.length === 0 ? (
+						"Photos"
+					) : (
+						<>{selectedImages.length} Files Selected</>
+					)}
+				</h1>
+				
 				<button
-					className="bg-red-300 p-4 ml-3 rounded-md text-black"
-					onClick={handleReorderImages}
-				>
-					Reorder
-				</button>
-				<button
-					className="bg-red-500 p-4 ml-3 rounded-md text-black"
+					className="p-2 rounded-md text-xl font-semibold text-red-500 hover:bg-red-500 hover:text-white"
 					// onClick={(id) => deleteSelectedImages(id)}
-                    onClick={deleteSelectedImages}
+					onClick={deleteSelectedImages}
 				>
 					Delete Selected
 				</button>
-				<button
-					className="bg-blue-300 p-4 ml-3 rounded-md text-black"
-					// onClick={() => setFeatured(featuredImage)}
-				>
-					Set Featured
-				</button>
+				
 			</div>
 		</div>
 	);

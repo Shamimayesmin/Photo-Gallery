@@ -3,13 +3,12 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
 import SingleImage from "./SingleImage";
 import FilterButtons from "./FilterButtons";
 import imageData from "../../data";
 import DragAndDrop from "./DragAndDrop";
-import SampleOne from "./SampleOne";
-import SampleTwo from "./SampleTwo";
+
 
 const ImageGallery = () => {
 	const [images, setImages] = useState(imageData);
@@ -87,10 +86,11 @@ const ImageGallery = () => {
 				selectedImages={selectedImages}
 				deleteSelectedImages={deleteSelectedImages}
 			/>
+            <hr />
 
 			<section className="h-full w-full p-5">
             <div
-				className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap-4 rounded-lg"
+				className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap-6 rounded-lg my-11"
 				onDragOver={handleDragOver}
 			>
 				{images.map((item, index) => (
