@@ -2,7 +2,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import imageData from "../../data";
 import { BsImage } from "react-icons/bs";
 const DragAndDrop = ({ handleFileChange }) => {
 	return (

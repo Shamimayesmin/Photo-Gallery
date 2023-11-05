@@ -5,7 +5,7 @@ import React from "react";
 const FilterButtons = ({
 	selectedImages,
 	deleteSelectedImages,
-	handleReorderImages,
+	
 }) => {
 	return (
 		<div className="py-4 px-5">
@@ -21,7 +21,7 @@ const FilterButtons = ({
 				
 				<button
 					className="p-2 rounded-md text-xl font-semibold text-red-500 hover:bg-red-500 hover:text-white"
-					// onClick={(id) => deleteSelectedImages(id)}
+					
 					onClick={deleteSelectedImages}
 				>
 					Delete Selected

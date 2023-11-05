@@ -9,15 +9,13 @@ import FilterButtons from "./FilterButtons";
 import imageData from "../../data";
 import DragAndDrop from "./DragAndDrop";
 
-
 const ImageGallery = () => {
 	const [images, setImages] = useState(imageData);
 	const [selectedImages, setSelectedImages] = useState([]);
-	const [isDrag, setIsDrag] = useState(false);
-	const [dragImage, setDragImage] = useState(null);
-	const [draggedImageIndex, setDraggedImageIndex] = useState(null);
+
 	const [draggedIndex, setDraggedIndex] = useState(null);
-	const [draggedImage, setDraggedImage] = useState(null);
+
+	//Toggle selecting image function
 	const handleImageSelect = (imageId) => {
 		// Toggle the selected state of an image
 		setSelectedImages((prevSelectedImages) => {
@@ -29,6 +27,7 @@ const ImageGallery = () => {
 		});
 	};
 
+	// Image delete function
 	const deleteSelectedImages = () => {
 		const remainingImages = images.filter(
 			(image) => !selectedImages.includes(image.id)
@@ -37,39 +36,41 @@ const ImageGallery = () => {
 		setSelectedImages([]); // Clear selected images after deletion
 	};
 
+	// Function for upload image or drag-and-drop
 	const handleFileChange = (e) => {
 		const selectedFiles = e.target.files;
-		console.log("Selected files:", selectedFiles);
 
 		const newImages = Array.from(selectedFiles).map((file, index) => {
 			const id = images.length + index + 1;
 			const photo = URL.createObjectURL(file);
-			console.log("Created URL for file:", photo);
 
 			return { id, photo };
 		});
 
-		console.log("New images:", images, newImages);
+		// console.log("New images:", images, newImages);
 		setImages([...images, ...newImages]);
-		// setImageFiles([]);
 	};
 
+	// Image drag over function
 	const handleDragOver = (e) => {
 		e.preventDefault();
 
 		if (e.target && e.target.children[0] && e.target.children[0].alt) {
-			setDraggedImageIndex(e.target.children[0].alt);
+			setDraggedIndex(e.target.children[0].alt);
 		}
 	};
 
-	const handleDragStart = (e, index) => {
+	// Drag start function
+	const handleDragStart = (index) => {
 		setDraggedIndex(index);
 	};
 
+	// Image drag end function
 	const handleDragEnd = () => {
 		setDraggedIndex(null);
 	};
 
+	// Iamge drop function
 	const handleDrop = (targetIndex) => {
 		if (draggedIndex === null || targetIndex === draggedIndex) return;
 
@@ -82,35 +83,34 @@ const ImageGallery = () => {
 	return (
 		<>
 			<FilterButtons
-				
 				selectedImages={selectedImages}
 				deleteSelectedImages={deleteSelectedImages}
 			/>
-            <hr />
+			<hr />
 
 			<section className="h-full w-full p-5">
-            <div
-				className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap-6 rounded-lg mt-11 mb-24"
-				onDragOver={handleDragOver}
-			>
-				{images.map((item, index) => (
-					<SingleImage
-						key={item.id}
-						item={item}
-						selectedImages={selectedImages}
-						index={index}
-						handleImageSelect={handleImageSelect}
-						onDragStart={handleDragStart}
-						onDragEnd={handleDragEnd}
-						isDragging={index === draggedIndex}
-						onDrop={() => handleDrop(index)}
-					></SingleImage>
-				))}
+				<div
+					className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap-6 rounded-lg mt-11 mb-24"
+					onDragOver={handleDragOver}
+				>
+					{images.map((item, index) => (
+						<SingleImage
+							key={item.id}
+							item={item}
+							selectedImages={selectedImages}
+							index={index}
+							handleImageSelect={handleImageSelect}
+							onDragStart={handleDragStart}
+							onDragEnd={handleDragEnd}
+							isDragging={index === draggedIndex}
+							onDrop={() => handleDrop(index)}
+						></SingleImage>
+					))}
 
-				{/* last section */}
-				<DragAndDrop handleFileChange={handleFileChange} />
-			</div>
-            </section>
+					{/* last section */}
+					<DragAndDrop handleFileChange={handleFileChange} />
+				</div>
+			</section>
 		</>
 	);
 };

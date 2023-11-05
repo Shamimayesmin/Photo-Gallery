@@ -18,21 +18,20 @@ const SingleImage = ({
 	onDrop,
 }) => {
 	// console.log(item);
-	// const { image, id } = item;
+	
+	// Select image
 	const isSelected = selectedImages.includes(item?.id);
-	const isFeatured = index === 0;
-	// let imageSource = item?.image || item?.id; // Assume it's an original image
+
+	// Condition for image
 	let imageSource = item?.photo || item?.image || item?.id;
+
+	//Ternary operator for fetured image 
+	const isFeatured = index === 0;
 	const imageClasses = isFeatured
-		? "lg:col-span-2 lg:row-span-2 md:col-span-2 md:row-span-2 rounded-lg w-full h-full" // Larger size for the featured image w-full h-full border-2 rounded-lg col-start-1 col-end-3
-		: "col-span-1 w-full h-full rounded-lg"; // Smaller size for the regular images lg:w-40 lg:h-40 md:w-full md:h-full  border-2 rounded-lg
+		? "lg:col-span-2 lg:row-span-2 md:col-span-2 md:row-span-2 rounded-lg w-full h-full"   // Larger size for the featured image 
+		: "col-span-1 w-full h-full rounded-lg"; // Smaller size for the regular 
 
-	// if (item?.photo) {
-	// 	imageSource = item?.photo;
-	// }
-
-	//className="card card-compact w-80 relative shadow-lg bg-white rounded-md hover:brightness-50 border-4 border-slate-600"
-
+	
 	return (
 		<div
 			key={index}
